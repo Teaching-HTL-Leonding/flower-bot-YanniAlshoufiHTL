@@ -1,0 +1,51 @@
+<h2>Answer Question</h2>
+
+@if (openAiService.getMessages().length > 40) {
+<h2>Your turns have run out (20 max), restart chat?</h2>
+<button (click)="openAiService.clearChat()">Restart</button>
+} @else {
+<form (submit)="answerQuestion()">
+    <label for="question"> Question </label>
+
+    <div>
+        <input
+            type="text"
+            id="question"
+            name="question"
+            placeholder="Enter your question here"
+            list="suggestions"
+            [(ngModel)]="question"
+        />
+
+        <button>Answer</button>
+    </div>
+</form>
+}
+
+<markdown [data]="answer()"></markdown>
+
+<hr />
+
+<article>
+    @for (message of openAiService.getMessages(); track $index) {
+    <div
+        style="width: 100%; display: flex; justify-content: {{
+            message.role === 'user' ? 'start' : 'end'
+        }}"
+    >
+        <div style="width: 50%">
+            <markdown [data]="message.content"></markdown>
+        </div>
+    </div>
+
+    <hr />
+    }
+</article>
+
+<!-- Data Lists -->
+
+<datalist id="suggestions">
+    <option>Are dolphins fish?</option>
+    <option>Give me a checklist for a good body-weight training</option>
+    <option>What should I view as a tourist in Vienna?</option>
+</datalist>

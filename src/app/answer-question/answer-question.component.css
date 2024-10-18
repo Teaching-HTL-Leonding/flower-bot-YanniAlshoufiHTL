@@ -1,0 +1,20 @@
+form {
+    label {
+        display: block;
+    }
+
+    div {
+        display: flex;
+        gap: 0.5rem;
+
+        input {
+            flex: 1;
+            padding: 0.2rem;
+            box-sizing: border-box;
+        }
+    }
+}
+
+article {
+    font-size: 50%;
+}
